@@ -1,0 +1,8 @@
+﻿cl : コマンド ライン warning D9025: '/sdl' より '/GS-' が優先されます。
+  emu_main2.c
+  コード生成しています。
+  2 of 52 functions ( 3.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    12 functions had inline decision re-evaluated but remain unchanged
+  コード生成が終了しました。
+  Project1.vcxproj -> D:\rpi_pico\cq_interface\sample2\emu\Project1\x64\Release\Project1.exe

@@ -1,0 +1,12 @@
+How to initialize:
+	cd build
+	cmake -G "NMake Makefiles" ..
+	nmake
+
+Location of binary:
+	build\src\bin.uf2
+
+How to build:
+	cd build
+	nmake
+

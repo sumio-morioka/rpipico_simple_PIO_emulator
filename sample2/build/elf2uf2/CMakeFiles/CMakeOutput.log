@@ -50,26 +50,26 @@ The CXX compiler identification is MSVC, found in "D:/rpi_pico/cq_interface/samp
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: D:/rpi_pico/cq_interface/sample2/build/elf2uf2/CMakeFiles/CMakeTmp
 
-Run Build Command(s):nmake -f Makefile /nologo cmTC_6e8e0\fast && 	"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_6e8e0.dir\build.make /nologo -L                  CMakeFiles\cmTC_6e8e0.dir\build
-Building C object CMakeFiles/cmTC_6e8e0.dir/CMakeCCompilerABI.c.obj
-	"C:\Program Files\CMake\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_6e8e0.dir\CMakeCCompilerABI.c.obj.d --working-dir=D:\rpi_pico\cq_interface\sample2\build\elf2uf2\CMakeFiles\CMakeTmp --filter-prefix="メモ: インクルード ファイル:  " -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\cl.exe @f:\TEMP\nmD761.tmp
+Run Build Command(s):nmake -f Makefile /nologo cmTC_72eff\fast && 	"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_72eff.dir\build.make /nologo -L                  CMakeFiles\cmTC_72eff.dir\build
+Building C object CMakeFiles/cmTC_72eff.dir/CMakeCCompilerABI.c.obj
+	"C:\Program Files\CMake\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_72eff.dir\CMakeCCompilerABI.c.obj.d --working-dir=D:\rpi_pico\cq_interface\sample2\build\elf2uf2\CMakeFiles\CMakeTmp --filter-prefix="メモ: インクルード ファイル:  " -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\cl.exe @f:\TEMP\nm4C2E.tmp
 CMakeCCompilerABI.c
 繝ｻ・懊・ 繧､繝ｳ繧ｯ繝ｫ繝ｼ繝・繝輔ぃ繧､繝ｫ:  C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCompilerABI.h
-Linking C executable cmTC_6e8e0.exe
-	"C:\Program Files\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_6e8e0.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\cmTC_6e8e0.dir\objects1.rsp @f:\TEMP\nmD80E.tmp
+Linking C executable cmTC_72eff.exe
+	"C:\Program Files\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_72eff.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\cmTC_72eff.dir\objects1.rsp @f:\TEMP\nm4CEB.tmp
 
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/rpi_pico/cq_interface/sample2/build/elf2uf2/CMakeFiles/CMakeTmp
 
-Run Build Command(s):nmake -f Makefile /nologo cmTC_bb11e\fast && 	"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_bb11e.dir\build.make /nologo -L                  CMakeFiles\cmTC_bb11e.dir\build
-Building CXX object CMakeFiles/cmTC_bb11e.dir/CMakeCXXCompilerABI.cpp.obj
-	"C:\Program Files\CMake\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_bb11e.dir\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\rpi_pico\cq_interface\sample2\build\elf2uf2\CMakeFiles\CMakeTmp --filter-prefix="メモ: インクルード ファイル:  " -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\cl.exe @f:\TEMP\nmDD2E.tmp
+Run Build Command(s):nmake -f Makefile /nologo cmTC_81ef4\fast && 	"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_81ef4.dir\build.make /nologo -L                  CMakeFiles\cmTC_81ef4.dir\build
+Building CXX object CMakeFiles/cmTC_81ef4.dir/CMakeCXXCompilerABI.cpp.obj
+	"C:\Program Files\CMake\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_81ef4.dir\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\rpi_pico\cq_interface\sample2\build\elf2uf2\CMakeFiles\CMakeTmp --filter-prefix="メモ: インクルード ファイル:  " -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\cl.exe @f:\TEMP\nm51BC.tmp
 CMakeCXXCompilerABI.cpp
 繝ｻ・懊・ 繧､繝ｳ繧ｯ繝ｫ繝ｼ繝・繝輔ぃ繧､繝ｫ:  C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCompilerABI.h
-Linking CXX executable cmTC_bb11e.exe
-	"C:\Program Files\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_bb11e.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\cmTC_bb11e.dir\objects1.rsp @f:\TEMP\nmDDEA.tmp
+Linking CXX executable cmTC_81ef4.exe
+	"C:\Program Files\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_81ef4.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\cmTC_81ef4.dir\objects1.rsp @f:\TEMP\nm5288.tmp
 
 
 

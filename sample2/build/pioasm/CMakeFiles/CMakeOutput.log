@@ -26,13 +26,13 @@ The CXX compiler identification is MSVC, found in "D:/rpi_pico/cq_interface/samp
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/rpi_pico/cq_interface/sample2/build/pioasm/CMakeFiles/CMakeTmp
 
-Run Build Command(s):nmake -f Makefile /nologo cmTC_f19ec\fast && 	"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_f19ec.dir\build.make /nologo -L                  CMakeFiles\cmTC_f19ec.dir\build
-Building CXX object CMakeFiles/cmTC_f19ec.dir/CMakeCXXCompilerABI.cpp.obj
-	"C:\Program Files\CMake\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_f19ec.dir\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\rpi_pico\cq_interface\sample2\build\pioasm\CMakeFiles\CMakeTmp --filter-prefix="メモ: インクルード ファイル:  " -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\cl.exe @f:\TEMP\nm8039.tmp
+Run Build Command(s):nmake -f Makefile /nologo cmTC_35058\fast && 	"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.30.30705\bin\HostX86\x86\nmake.exe"  -f CMakeFiles\cmTC_35058.dir\build.make /nologo -L                  CMakeFiles\cmTC_35058.dir\build
+Building CXX object CMakeFiles/cmTC_35058.dir/CMakeCXXCompilerABI.cpp.obj
+	"C:\Program Files\CMake\bin\cmake.exe" -E cmake_cl_compile_depends --dep-file=CMakeFiles\cmTC_35058.dir\CMakeCXXCompilerABI.cpp.obj.d --working-dir=D:\rpi_pico\cq_interface\sample2\build\pioasm\CMakeFiles\CMakeTmp --filter-prefix="メモ: インクルード ファイル:  " -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\cl.exe @f:\TEMP\nmF4D7.tmp
 CMakeCXXCompilerABI.cpp
 繝ｻ・懊・ 繧､繝ｳ繧ｯ繝ｫ繝ｼ繝・繝輔ぃ繧､繝ｫ:  C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCompilerABI.h
-Linking CXX executable cmTC_f19ec.exe
-	"C:\Program Files\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_f19ec.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\cmTC_f19ec.dir\objects1.rsp @f:\TEMP\nm820E.tmp
+Linking CXX executable cmTC_35058.exe
+	"C:\Program Files\CMake\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\cmTC_35058.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100190~1.0\x86\mt.exe --manifests -- C:\PROGRA~1\MIB055~1\2022\COMMUN~1\VC\Tools\MSVC\1430~1.307\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\cmTC_35058.dir\objects1.rsp @f:\TEMP\nmF6BC.tmp
 
 
 

@@ -1,12 +1,29 @@
-How to initialize:
-	cd build
-	cmake -G "NMake Makefiles" ..
-	nmake
+------------------------------------------
+Liux: use conventional CLI shell
 
-Location of binary:
-	build\src\bin.uf2
+	How to initialize:
+		cd build
+		cmake ..
+		make
 
-How to build:
-	cd build
-	nmake
+	Location of binary:
+		build\src\bin.uf2
 
+	How to build:
+		cd build
+		make
+------------------------------------------
+Windows: use Developer Command Prompt for VS 2022
+
+	How to initialize:
+		cd build
+		cmake -G "NMake Makefiles" ..
+		nmake
+
+	Location of binary:
+		build\src\bin.uf2
+
+	How to build:
+		cd build
+		nmake
+------------------------------------------

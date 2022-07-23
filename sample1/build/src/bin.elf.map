@@ -1182,9 +1182,9 @@ Discarded input sections
  .text.pio_sm_drain_tx_fifo
                 0x00000000       0x40 CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
  .bss.claimed   0x00000000        0x1 CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
- .text          0x00000000        0x0 f:\TEMP\ccefzZUf.o
- .data          0x00000000        0x0 f:\TEMP\ccefzZUf.o
- .bss           0x00000000        0x0 f:\TEMP\ccefzZUf.o
+ .text          0x00000000        0x0 f:\TEMP\ccIlvRzb.o
+ .data          0x00000000        0x0 f:\TEMP\ccIlvRzb.o
+ .bss           0x00000000        0x0 f:\TEMP\ccIlvRzb.o
  .data          0x00000000        0x0 c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .bss           0x00000000        0x0 c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .text          0x00000000        0x0 c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a(lib_a-calloc.o)
@@ -1400,7 +1400,7 @@ LOAD c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../
 .boot2          0x10000000      0x100
                 0x10000000                __boot2_start__ = .
  *(.boot2)
- .boot2         0x10000000      0x100 f:\TEMP\ccefzZUf.o
+ .boot2         0x10000000      0x100 f:\TEMP\ccIlvRzb.o
                 0x10000100                __boot2_end__ = .
                 0x00000001                ASSERT (((__boot2_end__ - __boot2_start__) == 0x100), ERROR: Pico second stage bootloader must be 256 bytes in size)
 
@@ -2456,7 +2456,7 @@ LOAD CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_
 LOAD CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
 LOAD CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
 LOAD CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
-LOAD f:\TEMP\ccefzZUf.o
+LOAD f:\TEMP\ccIlvRzb.o
 LOAD c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libstdc++.a
 LOAD c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libm.a
 START GROUP
@@ -2576,7 +2576,7 @@ LOAD linker stubs
  .ARM.attributes
                 0x000007fa       0x2c CMakeFiles/bin.dir/D_/rpi_pico/pico-sdk/src/rp2_common/hardware_pio/pio.c.obj
  .ARM.attributes
-                0x00000826       0x22 f:\TEMP\ccefzZUf.o
+                0x00000826       0x22 f:\TEMP\ccIlvRzb.o
  .ARM.attributes
                 0x00000848       0x1e c:/progra~2/gnuarm~1/102021~1.10/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .ARM.attributes

@@ -1543,9 +1543,9 @@ pico-sdk\src\rp2_common\cyw43_driver\CMakeFiles\cyw43_driver_picow_cyw43_bus_pio
 
 # All Build rule for target.
 src\CMakeFiles\bin.dir\all: pico-sdk\src\rp2_common\boot_stage2\CMakeFiles\bs2_default_padded_checksummed_asm.dir\all
-src\CMakeFiles\bin.dir\all: src\CMakeFiles\bin_pio0_sm1_pio_h.dir\all
 src\CMakeFiles\bin.dir\all: src\CMakeFiles\ELF2UF2Build.dir\all
 src\CMakeFiles\bin.dir\all: src\CMakeFiles\bin_pio0_sm0_pio_h.dir\all
+src\CMakeFiles\bin.dir\all: src\CMakeFiles\bin_pio0_sm1_pio_h.dir\all
 	$(MAKE) $(MAKESILENT) -f src\CMakeFiles\bin.dir\build.make /nologo -$(MAKEFLAGS) src\CMakeFiles\bin.dir\depend
 	$(MAKE) $(MAKESILENT) -f src\CMakeFiles\bin.dir\build.make /nologo -$(MAKEFLAGS) src\CMakeFiles\bin.dir\build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\rpi_pico\cq_interface\sample2\build\CMakeFiles --progress-num=17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88 "Built target bin"

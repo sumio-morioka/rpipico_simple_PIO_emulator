@@ -26,7 +26,11 @@ For emulating single state-machine behavior.
 
 <img src="emu_func.jpg" width="900">
 
+<img src="run_emu.jpg" width="500">
+
 <img src="outcsv.jpg" width="700">
+
+<img src="waveform_sample2.png" width="900">
 
 ## 5. Preparation of Pico ARM Code in C
 

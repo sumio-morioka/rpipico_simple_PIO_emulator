@@ -14,6 +14,10 @@ For emulating single state-machine behavior.
 
 <img src="define_parameters.jpg" width="700">
 
+<img src="inst.jpg" width="900">
+
+<img src="pseudo_inst.jpg" width="900">
+
 ## 3. Preparation of Input Test Vector
 
 <img src="incsv.jpg" width="700">

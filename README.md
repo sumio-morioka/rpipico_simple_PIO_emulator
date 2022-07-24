@@ -30,20 +30,20 @@ For emulating single state-machine behavior.
 
 ## 6. Build for Real Hardware
 
-## 7. Exmaples
-### 7.1 Sample1
+## 7. Examples
+### 7.1 Sample 1
 
 Demonstration of simple waveform output.
 
-### 7.2 Sample2
+### 7.2 Sample 2
 
 Demonstration of IRQ and multiple state-machines.
 
-### 7.3 Sample3
+### 7.3 Sample 3
 
 SPI interface.
 
-### 7.4 Sample4
+### 7.4 Sample 4
 
 PIO interface for PC.
 

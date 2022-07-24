@@ -32,6 +32,18 @@ For emulating single state-machine behavior.
 
 ## 7. Exmaples
 ### 7.1 Sample1
+
+Demonstration of simple waveform output.
+
 ### 7.2 Sample2
+
+Demonstration of IRQ and multiple state-machines.
+
 ### 7.3 Sample3
+
+SPI interface.
+
+### 7.4 Sample4
+
+PIO interface for PC.
 

@@ -2,7 +2,7 @@
 
 For emulating single state-machine behavior.
 
-## 1. Basic Design Flow
+## 1. Overall Design Flow
 
 <img src="basic_flow.jpg" width="700">
 

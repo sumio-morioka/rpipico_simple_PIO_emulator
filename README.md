@@ -121,7 +121,7 @@ which demonstrates the use of multiple statemaches and IRQ.
 ## 6. Build for Real Hardware
 
 Use 
-[a standard Pico-SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf)
+[a standard Pico-SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf "SDK document")
 to build a executable binary from the generated assembly code.
 
 

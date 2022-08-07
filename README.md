@@ -1,8 +1,9 @@
 # An Easy-to-Use RPI Pico PIO Emulator
 
-This is a simple tool for emulating behavior of **single** state machine in RPI Pico PIO. The tool 
-is almost independent of OS environment (Linux, Windows etc.) and only requires a standard C/C++ 
-compiler.
+This is a simple tool for emulating behavior of **single** state machine (SM) in RPI Pico PIO. The 
+tool is almost independent of OS environment (Linux, Windows etc.) and requires a standard C/C++ 
+compiler only. While the provided emulator cannot handle multi-SM, the whole design flow supports 
+designing multi-SM applications.
 
 
 ## 1. Overall Design Flow
@@ -105,18 +106,33 @@ While the generated CSV is readable, it will be better to use a free waveform vi
 
 ## 5. Preparation of Pico ARM Code in C
 
+The generated ".pio" file include a C API function *Assembler_Function_Name_config()* (
+[here (.pio code)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/pio0_sm0.pio "A generated pio file")
+is an example of the API function). Call this function first for initializing state machine in your 
+Pico application code, and then call pio_sm_set_enabled() to run state machines. 
+
+Here is another [implementation example](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample2/src/myapp.c "Multi-SM & IRQ example")
+which demonstrates the use of multiple statemaches and IRQ.
+
 <img src="armapi.jpg" width="900">
 <br>
 
 
 ## 6. Build for Real Hardware
 
+Use 
+[a standard Pico-SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf)
+to build a executable binary from the generated assembly code.
 
-## 7. Brief Explanation of Code Examples
+
+## 7. Examples Codes
 ### 7.1 Sample 1
 
-Demonstration of simple waveform output.
+[Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample1) 
+is a sample implementation of simple waveform output.
 
 ### 7.2 Sample 2
 
-Demonstration of IRQ and multiple state-machines.
+[Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample2) 
+is a sample implementation of multi-SM and IRQ.
+

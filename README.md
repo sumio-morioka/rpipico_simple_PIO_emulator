@@ -14,19 +14,24 @@ is not a standard PIO assembler code, i.e, ".pio" code.
 
 (Step 1) Write an assembler code **in C language**, by calling the provided C functions which correspond 
 to assembler instructions, like PIO coding in Micro Python. A list of the C functions will be shown 
-later in Section 2, and an example code will be explained in Section 4.
+later in Section 2, and an example code is
+[here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/emu/emu_main.c "A sample assembler code").
 
 (Step 2) Compile your source with the provided emulator source (a C header file 
-["**picopio_emu.h**"](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/picopio_emu.h "picopio_emu.h")
+["**picopio_emu.h**"](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/picopio_emu.h "Emulator program")
 ), and you will get a binary executable. 
 
-(Step 3) Run the binary with a input vector CSV file. An output trace CSV file and an assembler source
-(.pio code) for Pico SDK will be generated. You can observe the trace result by free 
+(Step 3) Run the binary with 
+[a input vector CSV file](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/emu/in.csv "A sample input CSV"). 
+[An output trace CSV file](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/emu/Project1/x64/Release/out.csv "a sample output CSV")
+and 
+[an assembler source (.pio code)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/pio0_sm0.pio "A generated pio file")
+for Pico SDK will be generated. You can observe the execution result by free 
 [Flow CSV Viewer](https://apps.microsoft.com/store/detail/flow-csv-viewer/9NQ7Z06VRXBW "Flow CSV Viewer")
-etc.
+etc. The assembler source include a C API function for initializing state machine.
 
 (Step 4) Write your Pico application in C and build with the assembler source generated in Step 3.
-The assembler source include a C API function for initializing state machine.
+Here is a [example](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/myapp.c "PICO application example").
 
 <br> 
 

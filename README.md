@@ -12,9 +12,9 @@ is not a standard PIO assembler code, i.e, ".pio" code.
 
 <br>
 
-(Step 1) Write an assembler code in C language, by calling the provided C functions which correspond 
+(Step 1) Write an assembler code **in C language**, by calling the provided C functions which correspond 
 to assembler instructions, like PIO coding in Micro Python. A list of the C functions will be shown 
-later in Section 2, and an example code will be shown in Section 4.
+later in Section 2, and an example code will be explained in Section 4.
 
 (Step 2) Compile your source with the provided emulator source (a C header file 
 ["**picopio_emu.h**"](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/picopio_emu.h "picopio_emu.h")

@@ -106,8 +106,8 @@ While the generated CSV is readable, it will be better to use a free waveform vi
 
 ## 5. Preparation of Pico ARM Code in C
 
-The generated ".pio" file include a C API function *Assembler_Function_Name_config()* (
-[here (.pio code)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/pio0_sm0.pio "A generated pio file")
+The generated ".pio" file include a C API function *Assembler_Function_Name_config()* 
+[(here)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/pio0_sm0.pio "A generated pio file")
 is an example of the API function). Call this function first for initializing state machine in your 
 Pico application code, and then call pio_sm_set_enabled() to run state machines. 
 

@@ -118,14 +118,14 @@ which demonstrates the use of multiple statemaches and IRQ.
 <br>
 
 
-## 6. Build for Real Hardware
+## 6. Build Binary for Real Hardware
 
 Use 
 [a standard Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf "C/C++ SDK document")
 to build a executable binary from the generated assembly code.
 
 
-## 7. Examples Codes
+## 7. Example Codes
 ### 7.1 Sample 1
 
 [Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample1 "github") 
@@ -135,4 +135,9 @@ is a sample implementation of simple waveform output.
 
 [Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample2 "github") 
 is a sample implementation of multi-SM and IRQ.
+
+
+## 8. Support
+
+Any help for debugging this tool is welcome!
 

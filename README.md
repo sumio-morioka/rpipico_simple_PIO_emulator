@@ -107,8 +107,8 @@ While the generated CSV is readable, it will be better to use a free waveform vi
 ## 5. Preparation of Pico ARM Code in C
 
 The generated ".pio" file include a C API function *Assembler_Function_Name_config()* 
-[(here)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/pio0_sm0.pio "A generated pio file")
-is an example of the API function). Call this function first for initializing state machine in your 
+[(here is an example of the API function)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/src/pio0_sm0.pio "A generated pio file")
+. Call this function first for initializing state machine in your 
 Pico application code, and then call pio_sm_set_enabled() to run state machines. 
 
 Here is another [implementation example](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample2/src/myapp.c "Multi-SM & IRQ example")
@@ -121,18 +121,18 @@ which demonstrates the use of multiple statemaches and IRQ.
 ## 6. Build for Real Hardware
 
 Use 
-[a standard Pico-SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf "SDK document")
+[a standard Pico C/C++ SDK](https://datasheets.raspberrypi.com/pico/raspberry-pi-pico-c-sdk.pdf "C/C++ SDK document")
 to build a executable binary from the generated assembly code.
 
 
 ## 7. Examples Codes
 ### 7.1 Sample 1
 
-[Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample1) 
+[Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample1 "github") 
 is a sample implementation of simple waveform output.
 
 ### 7.2 Sample 2
 
-[Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample2) 
+[Here](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/tree/main/sample2 "github") 
 is a sample implementation of multi-SM and IRQ.
 

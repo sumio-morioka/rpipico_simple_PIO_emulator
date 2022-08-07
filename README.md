@@ -83,14 +83,14 @@ Write an input data as a CSV file
 
 ## 4. Emulation and Observation of the Results
 
-Compile your program by conventional C/C++ compilers such as gcc and Visual Studio. Then simply run the prograum.
+Compile your program by conventional C/C++ compilers such as gcc and Visual Studio. Then simply run the program.
 
 <img src="run_emu.jpg" width="500">
 <br>
 
 Two output files will be generated. One is an execution trace file
 [(sample)](https://github.com/sumio-morioka/rpipico_simple_PIO_emulator/blob/main/sample1/emu/Project1/x64/Release/out.csv "a sample output CSV")
-. The file is in CSV format and each columns are defined below. The other is a ".pio" file (assembler
+. The file is in CSV format and each columns are defined below. Another is a ".pio" file (assembler
 source) for building Pico executable binary.
 
 <img src="outcsv.jpg" width="700">

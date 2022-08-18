@@ -139,5 +139,5 @@ is a sample implementation of multi-SM and IRQ.
 
 ## 8. Support
 
-Any help for debugging this tool is welcome!
+**Any help for debugging this tool is welcome!**
 

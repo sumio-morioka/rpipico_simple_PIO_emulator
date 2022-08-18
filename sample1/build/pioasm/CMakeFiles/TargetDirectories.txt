@@ -1,3 +1,0 @@
-D:/rpi_pico/cq_interface/sample1/build/pioasm/CMakeFiles/pioasm.dir
-D:/rpi_pico/cq_interface/sample1/build/pioasm/CMakeFiles/edit_cache.dir
-D:/rpi_pico/cq_interface/sample1/build/pioasm/CMakeFiles/rebuild_cache.dir

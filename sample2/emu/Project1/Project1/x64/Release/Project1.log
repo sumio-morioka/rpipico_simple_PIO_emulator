@@ -1,0 +1,7 @@
+﻿cl : コマンド ライン  warning D9025: '/sdl' より '/GS-' が優先されます。
+  emu_main2.c
+  コード生成しています。
+  Previous IPDB was built with incompatible compiler, fall back to full compilation.
+  All 52 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  Project1.vcxproj -> D:\rpi_pico\cq_interface\sample2\emu\Project1\x64\Release\Project1.exe

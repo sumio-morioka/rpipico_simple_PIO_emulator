@@ -1321,7 +1321,7 @@ static void pio_exec_instruction(void)
 	int			linenum;
 	uint8_t		addr;
 
-	bool		autopull_failure;
+	bool		autopull_failure, autopull_done;
 
 	/////////////////////////////////////////////////////////
 	// return immediately if executing delay cycles
@@ -1374,6 +1374,8 @@ static void pio_exec_instruction(void)
 	// autopull operation (if specified)
 	/////////////////////////////////////////////////////////
 	autopull_failure	= false;
+	autopull_done		= false;
+
 	if (_pio_info_g.osr_autopull == true && _pio_info_g.osr_bitctr >= _pio_info_g.osr_autopull_threshold) {	// reached to autopull threshold
 		uint32_t	pop_val;
 		if (pio_pop_txfifo(&pop_val) == true) {
@@ -1382,6 +1384,7 @@ static void pio_exec_instruction(void)
 #ifdef DISP_TRACE_STDOUT
 			fprintf(stdout, "\tAUTOPULL\n");
 #endif
+			autopull_done		= true;
 		}
 		else {
 			autopull_failure	= true;
@@ -1455,6 +1458,7 @@ static void pio_exec_instruction(void)
 			break;
 
 		case PIO_OSRE_NOTEMPTY:
+//			jmpcond	= (_pio_info_g.osr_bitctr >= _pio_info_g.osr_autopull_threshold)	? true : false;	// BUG
 			jmpcond	= (_pio_info_g.osr_bitctr < _pio_info_g.osr_autopull_threshold)	? true : false;
 			break;
 
@@ -1836,22 +1840,24 @@ exit(1);
 
 		stall	= false;
 
-		if (ifempty == false || _pio_info_g.osr_bitctr >= _pio_info_g.osr_autopull_threshold) {
-			pop_done	= pio_pop_txfifo(&pop_val);		// pop operation
+		if (autopull_done == false) {
+			if (ifempty == false || _pio_info_g.osr_bitctr >= _pio_info_g.osr_autopull_threshold) {
+				pop_done	= pio_pop_txfifo(&pop_val);		// pop operation
 
-			if (pop_done == true) {
-				_pio_info_g.osr			= pop_val;
+				if (pop_done == true) {
+					_pio_info_g.osr			= pop_val;
 // SPECIFICATION UNCONFIRMED: clearing bitnum
-				_pio_info_g.osr_bitctr	= 0;			// (full)
-			}
-			else {	// pop failure
-				if (block == true) {	// blocking
-					stall	= true;
+					_pio_info_g.osr_bitctr	= 0;			// (full)
 				}
-				else {					// nonblocking
-					_pio_info_g.osr			= _pio_info_g.x;	// IMPORTANT: mov x, osr
+				else {	// pop failure
+					if (block == true) {	// blocking
+						stall	= true;
+					}
+					else {					// nonblocking
+						_pio_info_g.osr			= _pio_info_g.x;	// IMPORTANT: mov x, osr
 // SPECIFICATION UNCONFIRMED: clearing bitnum
-					_pio_info_g.osr_bitctr	= 0;				// IMPORTANT (full)
+						_pio_info_g.osr_bitctr	= 0;				// IMPORTANT (full)
+					}
 				}
 			}
 		}

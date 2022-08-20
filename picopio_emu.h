@@ -1003,6 +1003,7 @@ static void pio_copy_csvin_to_input(void)
 
 	// IRQ ACK
 	_pio_info_g.irq_i	= _pio_info_g.csvin_info.irq_i;
+	_pio_info_g.irq_o	|= _pio_info_g.csvin_info.irq_i;
 
 	// TX fifo
 	if (_pio_info_g.csvin_info.txfifo_push == true) {

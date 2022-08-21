@@ -6,6 +6,8 @@ compiler only. While the provided emulator cannot handle multi-SM, the whole des
 designing multi-SM applications.
 
 日本語での説明は[インターフェース誌2022年9月号pp.36-48（紙媒体または電子書籍）](https://interface.cqpub.co.jp/magazine/202210/ "Japanese document")にあります．
+ラズベリーパイPicoの簡単PIOエミュレータです．ステートマシン1つの動作検証専用ですが，多くの場合は
+事足りるでしょう．Cコンパイラさえあれば，サンプルを真似するだけですぐに使えます．
 
 
 ## 1. Overall Design Flow
@@ -141,5 +143,6 @@ is a sample implementation of multi-SM and IRQ.
 
 ## 8. Support
 
-**Any help for debugging this tool is welcome!**
+**Any information on bugs is welcome!**
 
+バグのお知らせは歓迎です！

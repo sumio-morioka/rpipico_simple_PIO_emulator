@@ -5,6 +5,8 @@ tool is almost independent of OS environment (Linux, Windows etc.) and requires 
 compiler only. While the provided emulator cannot handle multi-SM, the whole design flow supports 
 designing multi-SM applications.
 
+日本語での説明は[インターフェース誌2022年9月号pp.36-48（紙媒体または電子書籍）](https://interface.cqpub.co.jp/magazine/202210/ "Japanese document")にあります．
+
 
 ## 1. Overall Design Flow
 

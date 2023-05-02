@@ -1004,7 +1004,7 @@ static uint32_t _pio_bitreverse(uint32_t val)
 
 
 void pio_code_start(
-	char	*funcname, 
+	const char	*funcname, 
 	int		sm_id,					// state machine ID (will be used for IRQ rel)
 
 	int		in_pins, 
@@ -1036,7 +1036,7 @@ void pio_code_start(
 	_pio_emu_state_g	= PIO_SIMSTATE_CODE_END;
 
 	// initialize global info
-	strcpy(_pio_info_g.func_name, funcname);			// NOTE: init value
+	strcpy_s(_pio_info_g.func_name, funcname);			// NOTE: init value
 
 	// state machine ID (for IRQ rel)
 	if (sm_id < 0 || sm_id > 3) {
@@ -1244,7 +1244,7 @@ void pio_code_start(
 
 
 void pio_code_start_simple(
-	char	*funcname, 
+	const char	*funcname, 
 	int		sm_id,					// state machine ID (will be used for IRQ rel)
 	int		in_pins, 
 	int		in_num, 
@@ -1342,19 +1342,19 @@ static void pio_resolve_label_address(void)
 			inst->operand2	= asmline;		// IMPORTANT: assembler line
 //fprintf(stderr, "resolve_label step %d jmp to step %d\n", inst->code_line, asmline);
 // for debug
-//			sprintf(tmpbuf, "\t; to addr 0x%02x", addr);
+//			sprintf_s(tmpbuf, "\t; to addr 0x%02x", addr);
 //			strcat(inst->asmbuf, tmpbuf);
 		}
 	}
 }
 
 
-static void pio_write_assembler_code(char *file_name_code)
+static void pio_write_assembler_code(const char *file_name_code)
 {
 	int		i;
 	FILE	*fp;
 
-	if ((_pio_info_g.fcode = fopen(file_name_code, "wt")) == (FILE *)NULL) {
+	if (fopen_s(&(_pio_info_g.fcode), file_name_code, "wt") != 0) {
 		fprintf(stderr, "pio_write_assembler_code(): ERROR. Cannot create output ASM file \"%s\".\n", file_name_code);
 		exit(1);
 	}
@@ -1521,7 +1521,7 @@ static void pio_write_assembler_code(char *file_name_code)
 }
 
 
-void pio_code_end(bool write_code, char *file_name_code)
+void pio_code_end(bool write_code, const char *file_name_code)
 {
 	if (_pio_emu_state_g != PIO_SIMSTATE_CODE_END) {
 		fprintf(stderr, "pio_code_end(): ERROR. Illegal code-end position.\n");
@@ -1751,7 +1751,7 @@ static void pio_read_csv_input(void)
 				_pio_info_g.csvin_info.txfifo_val	= v;
 			}
 #else
-			sscanf(_pio_info_g.csvin_cache, "%d, 0x%x, 0x%x, %d, 0x%x, %d\n",
+			sscanf_s(_pio_info_g.csvin_cache, "%d, 0x%x, 0x%x, %d, 0x%x, %d\n",
 						&(_pio_info_g.csvin_info.cycles),
 						&(_pio_info_g.csvin_info.gpio_i),
 						&i0,
@@ -1880,7 +1880,7 @@ static void pio_write_csv_output_inst(void)
 		fprintf(fp, "\"delay\", ");
 	else {
 		char	*p;
-		strcpy(tmpbuf, ap->asmbuf);
+		strcpy_s(tmpbuf, ap->asmbuf);
 		for (p = tmpbuf; *p != '\0'; p++) {
 			if (*p == '\t')
 				*p	= ' ';
@@ -2822,7 +2822,7 @@ fprintf(stderr, "pio_exec_instruction(): WARNING. Unsupported destination PINDIR
 }
 
 
-void pio_run_emulation(int cycles, char *file_name_in, char *file_name_out)
+void pio_run_emulation(int cycles, const char *file_name_in, const char *file_name_out)
 {
 	int	ctr;
 
@@ -2840,13 +2840,13 @@ void pio_run_emulation(int cycles, char *file_name_in, char *file_name_out)
 		exit(1);
 	}
 	if (file_name_in != (char *)NULL) {		// open input csv
-		if ((_pio_info_g.fin = fopen(file_name_in, "rt")) == (FILE *)NULL) {
+		if (fopen_s(&(_pio_info_g.fin), file_name_in, "rt") != 0) {
 			fprintf(stderr, "pio_run_emulation(): ERROR. Cannot open input CSV file \"%s\".\n", file_name_in);
 			exit(1);
 		}
 	}
 	if (file_name_out != (char *)NULL) {	// create output csv
-		if ((_pio_info_g.fout = fopen(file_name_out, "wt")) == (FILE *)NULL) {
+		if (fopen_s(&(_pio_info_g.fout), file_name_out, "wt") != 0) {
 			fprintf(stderr, "pio_run_emulation(): ERROR. Cannot create output CSV file \"%s\".\n", file_name_out);
 //			if (_pio_info_g.fin != (FILE *)NULL) {
 //				fclose(_pio_info_g.fin);
@@ -2931,7 +2931,7 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	ap->sideset		= sideset;
 	ap->delay		= delay;
 	if (str != (char *)NULL) {
-		strcpy(strbuf, str);
+		strcpy_s(strbuf, PIO_MAX_ASMLINE_LEN + 1, str);
 	}
 
 	/////////////////////////////////////
@@ -2947,33 +2947,33 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// JMP
 	/////////////////////////////////
 	case PIO_INST_JMP:
-		sprintf(asmbuf, "jmp");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "jmp");
 
 		// condition
 		switch (op1) {
 		case PIO_ALWAYS:
-			strcat(asmbuf, "\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t");
 			break;
 		case PIO_X_EQ_0:
-			strcat(asmbuf, "\t!x\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t!x\t");
 			break;
 		case PIO_X_NEQ_0_DEC:
-			strcat(asmbuf, "\tx--\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tx--\t");
 			break;
 		case PIO_Y_EQ_0:
-			strcat(asmbuf, "\t!y\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t!y\t");
 			break;
 		case PIO_Y_NEQ_0_DEC:
-			strcat(asmbuf, "\ty--\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\ty--\t");
 			break;
 		case PIO_X_NEQ_Y:
-			strcat(asmbuf, "\tx!=y\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tx!=y\t");
 			break;
 		case PIO_PIN:
-			strcat(asmbuf, "\tpin\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpin\t");
 			break;
 		case PIO_OSRE_NOTEMPTY:
-			strcat(asmbuf, "\t!osre\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t!osre\t");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal condition (JMP in step %d).\n", linenum);
@@ -2981,14 +2981,14 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		}
 
 		// address
-		sprintf(tmpbuf, "%s%s", asmbuf, str);
-		strcpy(asmbuf, tmpbuf);
+		sprintf_s(tmpbuf, "%s%s", asmbuf, str);
+		strcpy_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3003,8 +3003,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3031,26 +3031,26 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// WAIT
 	/////////////////////////////////
 	case PIO_INST_WAIT:
-		sprintf(asmbuf, "wait");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "wait");
 
 		// polarity
 		if (op1 == 0) {
-			strcat(asmbuf, "\t0");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t0");
 		}
 		else {
-			strcat(asmbuf, "\t1");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t1");
 		}
 
 		// source
 		switch (op2) {
 		case PIO_GPIO:
-			strcat(asmbuf, " gpio");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " gpio");
 			break;
 		case PIO_PIN:
-			strcat(asmbuf, " pin");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " pin");
 			break;
 		case PIO_IRQ:
-			strcat(asmbuf, " irq");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " irq");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal source (WAIT in step %d).\n", linenum);
@@ -3058,19 +3058,19 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		}
 
 		// index
-		sprintf(tmpbuf, " 0x%02x", op3);
-		strcat(asmbuf, tmpbuf);
+		sprintf_s(tmpbuf, " 0x%02x", op3);
+		strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 
 		// rel
 		if (op4 == 1) {
-			strcat(asmbuf, " _rel");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " _rel");
 		}
 
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3085,8 +3085,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3113,27 +3113,27 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// IN
 	/////////////////////////////////
 	case PIO_INST_IN:
-		sprintf(asmbuf, "in");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "in");
 
 		// source
 		switch (op1) {
 		case PIO_PINS:
-			strcat(asmbuf, "\tpins");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpins");
 			break;
 		case PIO_X:
-			strcat(asmbuf, "\tx");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tx");
 			break;
 		case PIO_Y:
-			strcat(asmbuf, "\ty");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\ty");
 			break;
 		case PIO_NULL:
-			strcat(asmbuf, "\tnull");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tnull");
 			break;
 		case PIO_ISR:
-			strcat(asmbuf, "\tisr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tisr");
 			break;
 		case PIO_OSR:
-			strcat(asmbuf, "\tosr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tosr");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal source (IN in step %d).\n", linenum);
@@ -3142,8 +3142,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 
 		// bitcount
 		if (op2 >= 1 && op2 <= 32) {
-			sprintf(tmpbuf, " 0x%02x", op2);
-			strcat(asmbuf, tmpbuf);
+			sprintf_s(tmpbuf, " 0x%02x", op2);
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 		}
 		else {
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal bit count (IN in step %d).\n", linenum);
@@ -3153,8 +3153,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3169,8 +3169,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3197,33 +3197,33 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// OUT
 	/////////////////////////////////
 	case PIO_INST_OUT:
-		sprintf(asmbuf, "out");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "out");
 
 		// destination
 		switch (op1) {
 		case PIO_PINS:
-			strcat(asmbuf, "\tpins");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpins");
 			break;
 		case PIO_X:
-			strcat(asmbuf, "\tx");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tx");
 			break;
 		case PIO_Y:
-			strcat(asmbuf, "\ty");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\ty");
 			break;
 		case PIO_NULL:
-			strcat(asmbuf, "\tnull");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tnull");
 			break;
 		case PIO_PINDIRS:
-			strcat(asmbuf, "\tpindirs");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpindirs");
 			break;
 		case PIO_PC:
-			strcat(asmbuf, "\tpc");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpc");
 			break;
 		case PIO_ISR:
-			strcat(asmbuf, "\tisr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tisr");
 			break;
 		case PIO_EXEC:
-			strcat(asmbuf, "\texec");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\texec");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal destination (OUT in step %d).\n", linenum);
@@ -3232,8 +3232,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 
 		// bitcount
 		if (op2 >= 1 && op2 <= 32) {
-			sprintf(tmpbuf, " 0x%02x", op2);
-			strcat(asmbuf, tmpbuf);
+			sprintf_s(tmpbuf, " 0x%02x", op2);
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 		}
 		else {
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal bit count (OUT in step %d).\n", linenum);
@@ -3243,8 +3243,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3259,8 +3259,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3287,29 +3287,29 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// PUSH
 	/////////////////////////////////
 	case PIO_INST_PUSH:
-		sprintf(asmbuf, "push");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "push");
 
 		// iffull
 		if (op1 == 1) {
-			strcat(asmbuf, "\tiffull ");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tiffull ");
 		}
 		else {
-			strcat(asmbuf, "\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t");
 		}
 
 		// block
 		if (op2 == 0) {
-			strcat(asmbuf, "noblock");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "noblock");
 		}
 		else {
-			strcat(asmbuf, "block");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "block");
 		}
 
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3324,8 +3324,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3352,29 +3352,29 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// PULL
 	/////////////////////////////////
 	case PIO_INST_PULL:
-		sprintf(asmbuf, "pull");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "pull");
 
 		// ifempty
 		if (op1 == 1) {
-			strcat(asmbuf, "\tifempty ");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tifempty ");
 		}
 		else {
-			strcat(asmbuf, "\t");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\t");
 		}
 
 		// block
 		if (op2 == 0) {
-			strcat(asmbuf, "noblock");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "noblock");
 		}
 		else {
-			strcat(asmbuf, "block");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "block");
 		}
 
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3389,8 +3389,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3417,30 +3417,30 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// MOV
 	/////////////////////////////////
 	case PIO_INST_MOV:
-		sprintf(asmbuf, "mov");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "mov");
 
 		// destination
 		switch (op1) {
 		case PIO_PINS:
-			strcat(asmbuf, "\tpins");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpins");
 			break;
 		case PIO_X:
-			strcat(asmbuf, "\tx");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tx");
 			break;
 		case PIO_Y:
-			strcat(asmbuf, "\ty");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\ty");
 			break;
 		case PIO_EXEC:
-			strcat(asmbuf, "\texec");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\texec");
 			break;
 		case PIO_PC:
-			strcat(asmbuf, "\tpc");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpc");
 			break;
 		case PIO_ISR:
-			strcat(asmbuf, "\tisr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tisr");
 			break;
 		case PIO_OSR:
-			strcat(asmbuf, "\tosr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tosr");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal destination (MOV in step %d).\n", linenum);
@@ -3450,13 +3450,13 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		// operation
 		switch (op2) {
 		case PIO_NONE:
-			strcat(asmbuf, " ");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " ");
 			break;
 		case PIO_INVERT:
-			strcat(asmbuf, " !");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " !");
 			break;
 		case PIO_BIT_REVERSE:
-			strcat(asmbuf, " ::");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " ::");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal operation (MOV in step %d).\n", linenum);
@@ -3466,25 +3466,25 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		// source
 		switch (op3) {
 		case PIO_PINS:
-			strcat(asmbuf, "pins");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "pins");
 			break;
 		case PIO_X:
-			strcat(asmbuf, "x");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "x");
 			break;
 		case PIO_Y:
-			strcat(asmbuf, "y");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "y");
 			break;
 		case PIO_NULL:
-			strcat(asmbuf, "null");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "null");
 			break;
 		case PIO_STATUS:
-			strcat(asmbuf, "status");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "status");
 			break;
 		case PIO_ISR:
-			strcat(asmbuf, "isr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "isr");
 			break;
 		case PIO_OSR:
-			strcat(asmbuf, "osr");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "osr");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal source (MOV in step %d).\n", linenum);
@@ -3494,8 +3494,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3510,8 +3510,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3538,11 +3538,11 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// IRQ
 	/////////////////////////////////
 	case PIO_INST_IRQ:
-		sprintf(asmbuf, "irq");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "irq");
 
 		// clr
 		if (op1 == 1) {
-			strcat(asmbuf, "\tclear");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tclear");
 			if (op2 == 1) {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal wait-condition (IRQ in step %d).\n", linenum);
 				exit(1);
@@ -3551,15 +3551,15 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		else {
 			// NOTE: Instructions "irq" and "irq set" are written as "irq nowait".
 			if (op2 == 0)
-				strcat(asmbuf, "\tnowait");
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tnowait");
 			else
-				strcat(asmbuf, "\twait");
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\twait");
 		}
 
 		// irq_num
 		if (op3 >= 0 && op3 <= 7) {
-			sprintf(tmpbuf, " %d", op3);
-			strcat(asmbuf, tmpbuf);
+			sprintf_s(tmpbuf, " %d", op3);
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 		}
 		else {
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal irq_num (IRQ in step %d).\n", linenum);
@@ -3568,14 +3568,14 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 
 		// rel
 		if (op4 == 1) {
-			strcat(asmbuf, " rel");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, " rel");
 		}
 
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3590,8 +3590,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3618,21 +3618,21 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// SET
 	/////////////////////////////////
 	case PIO_INST_SET:
-		sprintf(asmbuf, "set");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "set");
 
 		// destination
 		switch (op1) {
 		case PIO_PINS:
-			strcat(asmbuf, "\tpins");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpins");
 			break;
 		case PIO_X:
-			strcat(asmbuf, "\tx");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tx");
 			break;
 		case PIO_Y:
-			strcat(asmbuf, "\ty");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\ty");
 			break;
 		case PIO_PINDIRS:
-			strcat(asmbuf, "\tpindirs");
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "\tpindirs");
 			break;
 		default:
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal destination (SET in step %d).\n", linenum);
@@ -3641,8 +3641,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 
 		// data
 		if (op2 >= 0 && op2 <= 31) {
-			sprintf(tmpbuf, " 0x%02x", op2);
-			strcat(asmbuf, tmpbuf);
+			sprintf_s(tmpbuf, " 0x%02x", op2);
+			strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 		}
 		else {
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal data (SET in step %d).\n", linenum);
@@ -3652,8 +3652,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3668,8 +3668,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3696,21 +3696,21 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 	// pseudo instructions
 	/////////////////////////////////
 	case PIO_INST_COMMENT:
-		sprintf(asmbuf, "; %s", strbuf);
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "; %s", strbuf);
 		break;
 
 	case PIO_INST_LABEL:
-		sprintf(asmbuf, "%s:", strbuf);
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "%s:", strbuf);
 		break;
 
 	case PIO_INST_NOP:
-		sprintf(asmbuf, "nop");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, "nop");
 
 		// sideset/delay
 		if (sideset != PIO_UNUSE) {
 			if (sideset >= 0 && sideset <= sideset_maxval) {
-				sprintf(tmpbuf, "\tside 0x%02x", sideset);
-				strcat(asmbuf, tmpbuf);
+				sprintf_s(tmpbuf, "\tside 0x%02x", sideset);
+				strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 			}
 			else {
 				fprintf(stderr, "pio_register_instruction(): ERROR. Illegal sideset value in step %d. (max %d)\n", linenum, sideset_maxval);
@@ -3725,8 +3725,8 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		if (delay != PIO_UNUSE) {
 			if (delay >= 0 && delay <= delay_maxval) {
 				if (delay > 0) {
-					sprintf(tmpbuf, "\t[%d]", delay);
-					strcat(asmbuf, tmpbuf);
+					sprintf_s(tmpbuf, "\t[%d]", delay);
+					strcat_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, tmpbuf);
 				}
 			}
 			else {
@@ -3750,7 +3750,7 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		break;
 
 	case PIO_INST_WRAP_TARGET:
-		sprintf(asmbuf, ".wrap_target");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, ".wrap_target");
 
 		if (_pio_info_g.wrap_target_line != PIO_UNUSE) {
 			fprintf(stderr, "pio_register_instruction(): ERROR. Multiple wrap_targets are written.\n");	//, linenum);
@@ -3761,13 +3761,13 @@ static void pio_register_instruction(int inst, int op1, int op2, int op3, int op
 		break;
 
 	case PIO_INST_WRAP:
-		sprintf(asmbuf, ".wrap");
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, ".wrap");
 
 		_pio_info_g.wrap_line			= linenum;
 		break;
 
 	case PIO_INST_ORIGIN:
-		sprintf(asmbuf, ".origin %d", op1);
+		sprintf_s(asmbuf, PIO_MAX_ASMLINE_LEN + 1, ".origin %d", op1);
 
 		if (_pio_info_g.origin != PIO_UNUSE) {
 			fprintf(stderr, "pio_register_instruction(): ERROR. Illegal origin statement location.\n");

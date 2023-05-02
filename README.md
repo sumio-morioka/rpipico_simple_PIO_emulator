@@ -1,3 +1,5 @@
+Modified for Windows Visual Studio.
+
 # An Easy-to-Use RPI Pico PIO Emulator
 
 This is a simple tool for emulating behavior of **single** state machine (SM) in RPI Pico PIO. The 

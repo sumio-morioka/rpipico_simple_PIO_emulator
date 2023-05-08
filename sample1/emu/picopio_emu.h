@@ -1728,7 +1728,7 @@ static void pio_read_csv_input(void)
 
 			// scan line
 #ifdef	PIO_IN_GPIO_BIT_BY_BIT
-			sscanf(_pio_info_g.csvin_cache, "%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, 0x%x, %d, 0x%x, %d\n",
+			sscanf_s(_pio_info_g.csvin_cache, "%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, 0x%x, %d, 0x%x, %d\n",
 						&(_pio_info_g.csvin_info.cycles),
 						&(gp[0]), &(gp[1]), &(gp[2]), &(gp[3]), &(gp[4]), &(gp[5]), &(gp[6]), &(gp[7]), &(gp[8]), &(gp[9]),
 						&(gp[10]), &(gp[11]), &(gp[12]), &(gp[13]), &(gp[14]), &(gp[15]), &(gp[16]), &(gp[17]), &(gp[18]), &(gp[19]),
